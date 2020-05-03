@@ -1,3 +1,5 @@
+import 'package:flower_shop/AppScreen/MainBody.dart';
+import 'package:flower_shop/AppScreen/SignIn.dart';
 import 'package:flower_shop/AppScreen/SignUp.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +20,7 @@ return MaterialApp(
  primarySwatch: Colors.brown
       ),
       debugShowCheckedModeBanner: false,
-      home: SignUp(),
+      home: Home(),
    
 ) ; 
  
