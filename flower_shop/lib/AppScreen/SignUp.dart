@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flower_shop/AppScreen/SignIn.dart';
+import 'package:flower_shop/logic/usermanagement.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
@@ -11,6 +14,8 @@ class SignUpState extends State<SignUp> {
   TextEditingController userController = TextEditingController();
   TextEditingController mailController = TextEditingController();
   TextEditingController passController = TextEditingController();
+  var formkey = GlobalKey<FormState>();
+  UserManagement userObj = new UserManagement();
 
   bool _isHiddenPw = true;
   bool _isHiddenCPw = true;
@@ -35,27 +40,27 @@ class SignUpState extends State<SignUp> {
         body: Stack(
       children: <Widget>[
         Container(
-          height: 600.0,
-          width: 350.0,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('images/signup.login.jpg'),
-                fit: BoxFit.cover),
-          ),
-        
-                        child:Padding(
-                          padding: const EdgeInsets.only(top:20.0),
-                          child: Form(
-                                                    child: ListView(
-                              children: <Widget>[
-                                Center(
-                child: Container(
-                    color: Color(0xffF59FF0).withOpacity(0.5),
-                    width: 280.0,
-                    height: 400.0,
-                    child: Column(
-                      children: <Widget>[
-                       /* Text(
+            height: 600.0,
+            width: 350.0,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('images/signup.login.jpg'),
+                  fit: BoxFit.cover),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Form(
+                key: formkey,
+                child: ListView(
+                  children: <Widget>[
+                    Center(
+                      child: Container(
+                          color: Color(0xffF59FF0).withOpacity(0.5),
+                          width: 280.0,
+                          height: 400.0,
+                          child: Column(
+                            children: <Widget>[
+                              /* Text(
                               "Florist",
                               style: TextStyle(
                                   fontWeight: FontWeight.w800,
@@ -63,29 +68,32 @@ class SignUpState extends State<SignUp> {
                                   fontSize: 50.0),
                             ),*/
 
-                            Text(
-                              'Welcome to the Florist',
-                              style: TextStyle(
-                                color: Color(0xffAF0B69),
-                                  fontSize: 25.0, fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'SignUp',
-                              style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                              Text(
+                                'Welcome to the Florist',
+                                style: TextStyle(
+                                    color: Color(0xffAF0B69),
+                                    fontSize: 25.0,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'SignUp',
+                                style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold),
+                              ),
 
-                             SizedBox(height: 10.0,),
+                              SizedBox(
+                                height: 10.0,
+                              ),
 
-                            //username
+                              //username
 
-                            
-                                       Container(
-                                decoration:BoxDecoration(borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white),
                                 height: 40.0,
                                 width: 250.0,
                                 //color: Colors.white,
@@ -98,197 +106,210 @@ class SignUpState extends State<SignUp> {
                                   },
                                   controller: userController,
                                   decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.person),
+                                      prefixIcon: Icon(Icons.person),
                                       errorStyle: TextStyle(
-                                          color: Color(0xffBA680B), fontSize: 15.0),
+                                          color: Color(0xffBA680B),
+                                          fontSize: 15.0),
                                       labelText: 'User Name',
-                                      labelStyle:
-                                          TextStyle(fontSize: 15.0, color: Colors.black),
+                                      labelStyle: TextStyle(
+                                          fontSize: 15.0, color: Colors.black),
                                       hintText: 'Nipun',
-                                      hintStyle:
-                                          TextStyle(fontSize: 15.0, color: Colors.grey),
+                                      hintStyle: TextStyle(
+                                          fontSize: 15.0, color: Colors.grey),
                                       border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                          borderSide: BorderSide(color: Colors.grey))),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide:
+                                              BorderSide(color: Colors.grey))),
                                 ),
                               ),
-                            
 
-                             SizedBox(height: 10.0,),
-
-                            Container( 
-                              height: 40.0,
-                              width: 250.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white
+                              SizedBox(
+                                height: 10.0,
                               ),
-                              child: TextFormField(
-                                // validate with email
 
-                                controller: mailController,
-                                validator: validateEmail,
-                                decoration: InputDecoration(
-                                  prefixIcon:Icon(Icons.email),
-                                    errorStyle: TextStyle(
-                                        color: Color(0xff87057F), fontSize: 15.0),
-                                    labelText: 'E-mail',
-                                    labelStyle:
-                                        TextStyle(fontSize: 15.0, color: Colors.black),
-                                    hintText: 'nipunsachintha@gmail.com',
-                                    hintStyle:
-                                        TextStyle(fontSize: 15.0, color: Colors.grey),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(color: Colors.grey))),
+                              Container(
+                                height: 40.0,
+                                width: 250.0,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white),
+                                child: TextFormField(
+                                  // validate with email
+
+                                  controller: mailController,
+                                  validator: validateEmail,
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.email),
+                                      errorStyle: TextStyle(
+                                          color: Color(0xff87057F),
+                                          fontSize: 15.0),
+                                      labelText: 'E-mail',
+                                      labelStyle: TextStyle(
+                                          fontSize: 15.0, color: Colors.black),
+                                      hintText: 'nipunsachintha@gmail.com',
+                                      hintStyle: TextStyle(
+                                          fontSize: 15.0, color: Colors.grey),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide:
+                                              BorderSide(color: Colors.grey))),
+                                ),
                               ),
-                            ),
 
-                            SizedBox(height: 10.0,),
-
-                            Container(
-                              height: 40.0,
-                              width: 250.0,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
-                              color: Colors.white)
-                              ,
-                              child: TextFormField(
-                                controller: passController,
-                                validator: validatePassword,
-                                obscureText: _isHiddenPw,
-                                decoration: InputDecoration(
-                                    errorStyle: TextStyle(
-                                        color: Color(0xff87057F), fontSize: 15.0),
-                                    prefixIcon: Icon(Icons.lock),
-                                    suffixIcon: IconButton(
-                                        onPressed: _visiblePw,
-                                        icon: _isHiddenPw
-                                            ? Icon(Icons.visibility_off)
-                                            : Icon(Icons.visibility)),
-                                    labelText: 'Password',
-                                    labelStyle:
-                                        TextStyle(fontSize: 15.0, color: Colors.black),
-                                    hintText: 'Password',
-                                    hintStyle:
-                                        TextStyle(fontSize: 15.0, color: Colors.grey),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(color: Colors.grey))),
-                                keyboardType: TextInputType.emailAddress,
+                              SizedBox(
+                                height: 10.0,
                               ),
-                            ),
-SizedBox(height:15.0),
 
-Padding(
-                child: Text(
-                    'Accept our Terms & conitions and privacy policy.',
-                    style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15.0)),
-                padding: EdgeInsets.only(right: 25.0, left: 25.0),
-              ),
-SizedBox(height:15.0),
+                              Container(
+                                height: 40.0,
+                                width: 250.0,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white),
+                                child: TextFormField(
+                                  controller: passController,
+                                  validator: validatePassword,
+                                  obscureText: _isHiddenPw,
+                                  decoration: InputDecoration(
+                                      errorStyle: TextStyle(
+                                          color: Color(0xff87057F),
+                                          fontSize: 15.0),
+                                      prefixIcon: Icon(Icons.lock),
+                                      suffixIcon: IconButton(
+                                          onPressed: _visiblePw,
+                                          icon: _isHiddenPw
+                                              ? Icon(Icons.visibility_off)
+                                              : Icon(Icons.visibility)),
+                                      labelText: 'Password',
+                                      labelStyle: TextStyle(
+                                          fontSize: 15.0, color: Colors.black),
+                                      hintText: 'Password',
+                                      hintStyle: TextStyle(
+                                          fontSize: 15.0, color: Colors.grey),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide:
+                                              BorderSide(color: Colors.grey))),
+                                  keyboardType: TextInputType.emailAddress,
+                                ),
+                              ),
+                              SizedBox(height: 15.0),
 
+                              Padding(
+                                child: Text(
+                                    'Accept our Terms & conitions and privacy policy.',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0)),
+                                padding:
+                                    EdgeInsets.only(right: 25.0, left: 25.0),
+                              ),
+                              SizedBox(height: 15.0),
 
-Container(
-  width: 170.0,
-  height: 35.0,
-  child:   Padding(
-  
-                  padding: EdgeInsets.only(left: 0.0, right: 0.0),
-  
-                  child: RaisedButton(
-  
-                      color: Color(0xff87057F),
-  
-                      hoverColor: Color(0xff87057F),
-  
-                      onPressed: ()  {
-  
-                          
-  
-                      },
-  
-                      shape: RoundedRectangleBorder(
-  
-                          borderRadius: BorderRadius.circular(40.0),
-  
-                          side: BorderSide(color: Color(0xff87057F)),
-  
-                      ),
-  
-                      child: Text(
-  
-                          'SignUp',
-  
-                          style: TextStyle(color: Colors.white, fontSize: 15.0),
-  
-                      )),
-  
-                ),
-),
+                              Container(
+                                width: 170.0,
+                                height: 35.0,
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 0.0, right: 0.0),
+                                  child: RaisedButton(
+                                      color: Color(0xff87057F),
+                                      hoverColor: Color(0xff87057F),
+                                      onPressed: () async {
+                                        if (formkey.currentState.validate()) {
+                                          await FirebaseAuth.instance
+                                              .createUserWithEmailAndPassword(
+                                                  email: mailController.text,
+                                                  password:
+                                                      passController.text);
+                                          FirebaseUser user = await FirebaseAuth
+                                              .instance
+                                              .currentUser();
+                                          String uid = user.uid.toString();
 
-              SizedBox(
-                height: 15.0,
-              ),
+                                          userObj.addData({
+                                            'id': uid,
+                                            'username':
+                                                this.userController.text,
+                                            'email': this.mailController.text,
+                                          });
 
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 25.0,
-                  ),
-                  Text('Already have a account?',
-                      style: TextStyle(
-                              decorationStyle: TextDecorationStyle.solid,
-                              fontSize: 15.0,
-                              color: Color(0xff87057F),
-                              fontWeight: FontWeight.bold)),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  GestureDetector(
-                    child: Text(
-                      'Log here',
-                      style: TextStyle(
-                              decorationStyle: TextDecorationStyle.solid,
-                              fontSize: 15.0,
-                              color: Color(0xff87057F),
-                              fontWeight: FontWeight.bold),
+                                          Navigator.pop(context);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Signin()));
+                                        }
+                                      },
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(40.0),
+                                        side: BorderSide(
+                                            color: Color(0xff87057F)),
+                                      ),
+                                      child: Text(
+                                        'SignUp',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15.0),
+                                      )),
+                                ),
+                              ),
+
+                              SizedBox(
+                                height: 15.0,
+                              ),
+
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(
+                                    width: 25.0,
+                                  ),
+                                  Text('Already have a account?',
+                                      style: TextStyle(
+                                          decorationStyle:
+                                              TextDecorationStyle.solid,
+                                          fontSize: 15.0,
+                                          color: Color(0xff87057F),
+                                          fontWeight: FontWeight.bold)),
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  GestureDetector(
+                                    child: Text(
+                                      'Log here',
+                                      style: TextStyle(
+                                          decorationStyle:
+                                              TextDecorationStyle.solid,
+                                          fontSize: 15.0,
+                                          color: Color(0xff87057F),
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    onTap: () {},
+                                  ),
+                                ],
+                              ),
+
+                              SizedBox(
+                                height: 20.0,
+                                width: 25.0,
+                              ),
+
+                              SizedBox(
+                                height: 10.0,
+                              )
+                            ],
+                          )),
                     ),
-                    onTap: () {
-                      
-                    
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
-
-              SizedBox(
-                height: 20.0,
-                width: 25.0,
-              ),
-
-              
-              SizedBox(
-                height: 10.0,
-              )
-
-
-
-
-                      ],
-                    )),
-              ),
-            
-          
-                              ],
-                            ),
-                          ),
-                        )
-                        
-                        
-        )
+            ))
       ],
     ));
   }

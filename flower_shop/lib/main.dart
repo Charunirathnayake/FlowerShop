@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flower_shop/AppScreen/MainBody.dart';
 import 'package:flower_shop/AppScreen/SignIn.dart';
 import 'package:flower_shop/AppScreen/SignUp.dart';
+import 'package:flower_shop/AppScreen/profile.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyHomePage());
@@ -13,6 +15,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+bool isloggin=false;
+
+@override
+void initState(){
+  super.initState();
+  FirebaseAuth.instance.currentUser().then((currentUser)=>{
+    isloggin=true
+});
+  
+}
+
+
    @override
   Widget build(BuildContext context) {
 return MaterialApp(
@@ -20,7 +34,7 @@ return MaterialApp(
  primarySwatch: Colors.brown
       ),
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: isloggin?Home():Signin(),
    
 ) ; 
  

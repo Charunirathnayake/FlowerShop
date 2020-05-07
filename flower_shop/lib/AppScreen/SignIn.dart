@@ -1,4 +1,6 @@
+import 'package:flower_shop/AppScreen/MainBody.dart';
 import 'package:flower_shop/AppScreen/SignUp.dart';
+import 'package:flower_shop/logic/auth.dart';
 import 'package:flutter/material.dart';
 
 class Signin extends StatefulWidget{
@@ -13,6 +15,8 @@ class Signin extends StatefulWidget{
 class SigninState extends State<Signin>{
 TextEditingController emailcontroller=TextEditingController();
 TextEditingController passcontroller=TextEditingController();
+var _formkey=GlobalKey<FormState>();
+
 
 bool _isHiddenPw = true;
   bool _isHiddenCPw = true;
@@ -52,7 +56,9 @@ child: Center(
     color: Color(0xffF59FF0).withOpacity(0.5),
                 width: 280.0,
                 height: 400.0,
-                child: Form(child: ListView(
+                child: Form(
+                  key: _formkey,
+                  child: ListView(
                   children: <Widget>[
                     Column(
                      children: <Widget>[
@@ -151,9 +157,37 @@ child: Center(
                     
                     
                     hoverColor: Color(0xffF5CA99),
-                    onPressed: () async {
-                       },
-                    shape: RoundedRectangleBorder(
+                    onPressed: () async{
+                if(emailcontroller.text.isEmpty||passcontroller.text.isEmpty){
+                  setState(() {
+                    _formkey.currentState.reset();
+                  });
+                  print('Enter your field');
+                  return;
+                }else{
+                  bool res=await Auth().signInWithEmail(
+                    emailcontroller.text,passcontroller.text
+                  );
+                  if(res==true){
+                    Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>Home(),
+
+                        ));
+                        
+
+                  }
+                  else{
+                    Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>Signin(),
+                        ));
+
+                  }
+                }
+              }
+                       
+                    ,shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40.0),
                       side: BorderSide(color: Color(0xff87057F)),
                     ),
