@@ -382,6 +382,36 @@ SizedBox(height: 10.0,),
               )
             ],
           ),
+          SizedBox(height:20.0),
+          Container(
+              height: 35.0,
+              width: 170.0,
+              child: Padding(
+                padding: const EdgeInsets.only(top:5.0,bottom:5.0),
+                child: RaisedButton(
+                    color: Color(0xff87057F),
+                    
+                    
+                    hoverColor: Color(0xffF5CA99),
+                    onPressed: () {uploadpic(context);
+                createData();
+                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
+              }
+                
+                       
+                    ,shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                      side: BorderSide(color: Color(0xff87057F)),
+                    ),
+                    child: Text(
+                      'Submit',
+                      style: TextStyle(color: Colors.white, fontSize: 15.0),
+                    )),
+              ),
+            ),
+
 
 
 
