@@ -3,6 +3,7 @@ import 'package:flower_shop/AppScreen/MainBody.dart';
 import 'package:flower_shop/AppScreen/SignIn.dart';
 import 'package:flower_shop/AppScreen/SignUp.dart';
 import 'package:flower_shop/AppScreen/profile.dart';
+import 'package:flower_shop/Post/PostUI.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyHomePage());
@@ -34,7 +35,7 @@ return MaterialApp(
  primarySwatch: Colors.brown
       ),
       debugShowCheckedModeBanner: false,
-      home: isloggin?Home():Signin(),
+      home: /*isloggin?Home():Signin(),*/ PostHome()
    
 ) ; 
  
