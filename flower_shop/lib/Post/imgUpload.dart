@@ -6,9 +6,6 @@ import 'dart:io';
 
 import 'package:intl/intl.dart';
 
-
-
-
 class Upload_img extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -64,7 +61,7 @@ class Upload_img_State extends State<Upload_img> {
     String postid;
     DatabaseReference ref = FirebaseDatabase.instance.reference();
     var data = {
-      "postid":postid,
+      "postid": postid,
       "image": Url,
       "description": _myvalue,
       "date": date,
@@ -82,19 +79,64 @@ class Upload_img_State extends State<Upload_img> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xffBA680B),
+      /* appBar: AppBar(
+        backgroundColor: Color(0xff87057F),
         title: Text("Add Your Posts"),
         
-      ),
-      body: Center(
-        child: sampleImage == null ? Text("Select an Image") : enableUpload(),
+      ),*/
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+          Color(0xff87057f),
+          Color(0xff931E8B),
+          Color(0xff9F3798),
+        ])),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 20.0,
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.only(top: 30.0, bottom: 30.0, left: 30.0),
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      'Add Your Posts',
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50))),
+                child: Center(
+                  child: sampleImage == null
+                      ? Text("Select an Image")
+                      : enableUpload(),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,
         tooltip: 'Add Image',
         child: Icon(Icons.add_a_photo),
-        backgroundColor: Color(0xffBA680B),
+        backgroundColor: Color(0xff87057F),
       ),
     );
   }
@@ -112,8 +154,7 @@ class Upload_img_State extends State<Upload_img> {
                   height: 15.0,
                 ),
                 TextFormField(
-                  decoration:
-                      InputDecoration(labelText: 'Description'),
+                  decoration: InputDecoration(labelText: 'Description'),
                   validator: (value) {
                     return value.isEmpty ? 'Description is required' : null;
                   },
@@ -124,12 +165,36 @@ class Upload_img_State extends State<Upload_img> {
                 SizedBox(
                   height: 15.0,
                 ),
-                RaisedButton(
-                  onPressed: UploadStatusImage,
-                  elevation: 10.0,
-                  child: Text("Add New Post"),
-                  textColor: Colors.white,
-                  color: Color(0xffBA680B),
+                Padding(
+                  padding: const EdgeInsets.only(left:8.0,right:8.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                                            child: RaisedButton(
+                          onPressed: (){
+                            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>Upload_img()));
+                          },
+                          elevation: 10.0,
+                          child: Text("Delete Post"),
+                          textColor: Colors.white,
+                          color: Color(0xff87057F),
+                        ),
+                      ),
+                      SizedBox(
+width:10.0 ,                    ),
+
+                      Expanded(
+                                            child: RaisedButton(
+                          onPressed: UploadStatusImage,
+                          elevation: 10.0,
+                          child: Text("Add Post"),
+                          textColor: Colors.white,
+                          color: Color(0xff87057F),
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),

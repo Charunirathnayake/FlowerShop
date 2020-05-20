@@ -44,7 +44,7 @@ setState(() {
     
     return Scaffold(
       appBar: AppBar(title: Text('Tour Guide'),
-      backgroundColor: Color(0xffBA680B),),
+      backgroundColor: Color(0xff87057F),),
       body: Container(
         child: postList.length==0?Text('No Posts Available'):ListView.builder(
           itemCount: postList.length,
