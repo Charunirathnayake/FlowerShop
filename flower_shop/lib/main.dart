@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flower_shop/AppScreen/Fields.dart';
 import 'package:flower_shop/AppScreen/MainBody.dart';
 import 'package:flower_shop/AppScreen/SignIn.dart';
 import 'package:flower_shop/AppScreen/SignUp.dart';
@@ -33,10 +34,10 @@ void initState(){
   Widget build(BuildContext context) {
 return MaterialApp(
   theme: ThemeData(
- primarySwatch: Colors.brown
+ primarySwatch: Colors.purple
       ),
       debugShowCheckedModeBanner: false,
-      home: /*isloggin?Home():Signin(),*/ Upload_img()
+      home: /*isloggin?Home():Signin(),*/ Fields()
    
 ) ; 
  

@@ -1,3 +1,4 @@
+import 'package:flower_shop/Post/PostUI.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -58,10 +59,9 @@ class Upload_img_State extends State<Upload_img> {
 
     String date = formatDate.format(dbTimeKey);
     String time = formatTime.format(dbTimeKey);
-    String postid;
     DatabaseReference ref = FirebaseDatabase.instance.reference();
     var data = {
-      "postid": postid,
+      
       "image": Url,
       "description": _myvalue,
       "date": date,
@@ -72,7 +72,7 @@ class Upload_img_State extends State<Upload_img> {
 
   void gotouploadpage() {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return Upload_img();
+      return PostHome();
     }));
   }
 
@@ -149,7 +149,7 @@ class Upload_img_State extends State<Upload_img> {
             key: formkey,
             child: Column(
               children: <Widget>[
-                Image.file(sampleImage, height: 330.0, width: 660.0),
+                Image.file(sampleImage, height: 300.0, width: 600.0),
                 SizedBox(
                   height: 15.0,
                 ),
